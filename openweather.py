@@ -31,7 +31,15 @@ class OpenWeather:
 
 
     # *********** CONSTRUCTOR **********
-
+    
+    """
+    Instantiate the class.
+    
+    Args:
+        requests_obj [requests] An instance of the Requests class.
+        key [string]            Your OpenWeather API key.
+        do_debug [bool          Output debug information. Default: False.
+    """ 
     def __init__(self, requests_obj=None, key=None, do_debug=False):
         assert key != None and key != "", "[ERROR] OpenWeather() requires an API key"
         assert requests_obj != None, "[ERROR] OpenWeather() requires a valid requests instance"
