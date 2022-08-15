@@ -28,6 +28,10 @@ ow = OpenWeather(requests, secrets["apikey"], False)
 
 The library uses `Requests`’ `get()` method, and works with `Response` instances created by requests.
 
+## Documentation
+
+You can [find full library documentation at smittytone.net](https://smittytone.net/docs/openweather.html).
+
 ## Copyright and licence
 
 OpenWeather-Python is © 2022 by Tony Smith and is licensed under the terms of the [MIT licence](./LICENSE.md).
