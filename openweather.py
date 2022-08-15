@@ -9,7 +9,7 @@ class OpenWeather:
     NOTE this class does not parse the incoming data, which is highly complex.
         It is up to your application to extract the data you require.
 
-    Version:        2.0.0
+    Version:        2.0.1
     Author:         Tony Smith (@smittytone)
     License:        MIT
     Copyright:      2022
@@ -17,7 +17,7 @@ class OpenWeather:
 
     # *********** CONSTANTS **********
 
-    VERSION = "2.0.0"
+    VERSION = "2.0.1"
     FORECAST_URL = "https://api.openweathermap.org/data/2.5/onecall"
 
 
@@ -138,7 +138,7 @@ class OpenWeather:
         matches = []
         for item in list:
             for exclude_type in exclude_types:
-                if item == type: matches.append(item)
+                if item == exclude_type: matches.append(item)
 
         if not matches:
             print("[ERROR] OpenWeather.exclude() incorrect exclusions passed")
