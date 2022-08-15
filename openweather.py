@@ -43,8 +43,10 @@ class OpenWeather:
             do_debug [bool             Output debug information. Default: False.
         """
 
-        assert api_key is not None and api_key != "", "[ERROR] OpenWeather() requires an API key"
-        assert requests_object is not None, "[ERROR] OpenWeather() requires a valid requests instance"
+        assert api_key is not None and api_key != "", \
+            "[ERROR] OpenWeather() requires an API key"
+        assert requests_object is not None, \
+            "[ERROR] OpenWeather() requires a valid requests instance"
 
         # Set private properties
         self.debug = do_debug
@@ -93,7 +95,9 @@ class OpenWeather:
         unit_types = ["metric", "imperal", "standard"]
         requested_units = requested_units.lower()
         if requested_units not in unit_types:
-            self._print_error("OpenWeather.set_units() incorrect units option selected (" + requested_units + "); using default value (standard)")
+            err = "OpenWeather.set_units() incorrect units option selected ("
+            err += requested_units + "); using default value (standard)"
+            self._print_error(err)
             requested_units = "standard"
 
         self.units = requested_units
@@ -113,12 +117,17 @@ class OpenWeather:
             The instance (self)
         """
 
-        lang_types = ["af", "al", "ar", "az", "bg", "ca", "cz", "da", "de", "el", "en", "eu", "fa",
-                    "fi", "fr", "gl", "he", "hi", "hr", "hu", "id", "it", "ja", "kr", "la", "lt",
-                    "mk", "no", "nl", "pl", "pt", "pt_br", "ro", "ru", "se", "sv", "sk", "sl", "sp", "es", "sr", "th", "tr", "ua", "uk", "vi", "zh_cn", "zh_tw", "zu"]
+        lang_types = ["af", "al", "ar", "az", "bg", "ca", "cz", "da", "de",
+                      "el", "en", "eu", "fa", "fi", "fr", "gl", "he", "hi",
+                      "hr", "hu", "id", "it", "ja", "kr", "la", "lt", "mk",
+                      "no", "nl", "pl", "pt", "pt_br", "ro", "ru", "se", "sv",
+                      "sk", "sl", "sp", "es", "sr", "th", "tr", "ua", "uk",
+                      "vi", "zh_cn", "zh_tw", "zu"]
         language = language.lower()
         if language not in lang_types:
-            self._print_error("OpenWeather.set_language() incorrect language option selected (" + language + "); using default value (en)")
+            err = "OpenWeather.set_language() incorrect language option selected ("
+            err += language + "); using default value (en)"
+            self._print_error(err)
             language = "en"
 
         self.lang = language
@@ -217,28 +226,30 @@ class OpenWeather:
         Returns:
             Whether the supplied co-ordinates are valid (True) or not (False).
         """
+
+        err = "OpenWeather." + caller + "() "
         try:
             longitude = float(longitude)
         except (ValueError, OverflowError):
-            self._print_error("OpenWeather." + caller + "() can't process supplied longitude value")
+            self._print_error(err + "can't process supplied longitude value")
             return False
 
         try:
             latitude = float(latitude)
         except (ValueError, OverflowError):
-            self._print_error("OpenWeather." + caller + "() can't process supplied latitude value")
+            self._print_error(err + "can't process supplied latitude value")
             return False
 
         if longitude == 999.0 or latitude == 999.0:
-            self._print_error("OpenWeather." + caller + "() requires valid latitude/longitude co-ordinates")
+            self._print_error(err + "requires valid latitude/longitude co-ordinates")
             return False
 
         if latitude > 90.0 or latitude < -90.0:
-            self._print_error("OpenWeather." + caller + "() requires valid a latitude co-ordinate (value out of range)")
+            self._print_error(err + "latitude co-ordinate out of range")
             return False
 
         if longitude > 180.0 or longitude < -180.0:
-            self._print_error("OpenWeather." + caller + "() requires valid a latitude co-ordinate (value out of range)")
+            self._print_error(err + "latitude co-ordinate out of range")
             return False
         return True
 
