@@ -1,23 +1,27 @@
+'''
+This class allows you to make one of two possible calls to OpenWeather’s
+API. For more information, see https://openweathermap.org/api/one-call-api
+Access to the API is controlled by key.
+
+Register for developer access here: https://openweathermap.org/appid
+
+NOTE this class does not parse the incoming data, which is highly complex.
+    It is up to your application to extract the data you require.
+
+Version:        2.0.2
+Author:         Tony Smith (@smittytone)
+License:        MIT
+Copyright:      2022
+'''
+
 class OpenWeather:
-    """
-    This class allows you to make one of two possible calls to OpenWeather’s
-    API. For more information, see https://openweathermap.org/api/one-call-api
-    Access to the API is controlled by key.
-
-    Register for developer access here: https://openweathermap.org/appid
-
-    NOTE this class does not parse the incoming data, which is highly complex.
-        It is up to your application to extract the data you require.
-
-    Version:        2.0.1
-    Author:         Tony Smith (@smittytone)
-    License:        MIT
-    Copyright:      2022
-    """
+    '''
+    See above
+    '''
 
     # *********** CONSTANTS **********
 
-    VERSION = "2.0.1"
+    VERSION = "2.0.2"
     FORECAST_URL = "https://api.openweathermap.org/data/2.5/onecall"
 
 
@@ -34,14 +38,14 @@ class OpenWeather:
     # *********** CONSTRUCTOR **********
 
     def __init__(self, requests_object=None, api_key=None, do_debug=False):
-        """
+        '''
         Instantiate the class.
 
         Args:
             requests_object [requests] An instance of the Requests class.
             api_key [string]           Your OpenWeather API key.
             do_debug [bool             Output debug information. Default: False.
-        """
+        '''
 
         assert api_key is not None and api_key != "", \
             "[ERROR] OpenWeather() requires an API key"
@@ -57,7 +61,7 @@ class OpenWeather:
     # *********** PUBLIC METHODS **********
 
     def request_forecast(self, latitude=999.0, longitude=999.0):
-        """
+        '''
         Make a request for future weather data.
 
         Args:
@@ -66,7 +70,7 @@ class OpenWeather:
 
         Returns:
             The weather data.
-        """
+        '''
 
         # Check the supplied co-ordinates
         if not self._check_coords(longitude, latitude, "request_forecast"):
@@ -74,14 +78,14 @@ class OpenWeather:
 
         # Co-ordinates good, so get a forecast
         url = self.FORECAST_URL
-        url += "?lat={:.6f}&lon={:.6f}&appid={}".format(latitude, longitude, self.apikey)
+        url += f"lat={latitude:.6f}&lon={longitude:.6f}&appid={self.apikey}"
         url = self._add_options(url)
         self._print_debug("Request URL: " + url)
         return self._send_request(url)
 
 
     def set_unit(self, requested_units="standard"):
-        """
+        '''
         Specify the preferred weather report's units.
 
         Args:
@@ -90,9 +94,9 @@ class OpenWeather:
 
         Returns:
             The instance (self)
-        """
+        '''
 
-        unit_types = ["metric", "imperal", "standard"]
+        unit_types = ["metric", "imperial", "standard"]
         requested_units = requested_units.lower()
         if requested_units not in unit_types:
             err = "OpenWeather.set_units() incorrect units option selected ("
@@ -106,7 +110,7 @@ class OpenWeather:
 
 
     def set_language(self, language="en"):
-        """
+        '''
         Specify the preferred weather report's language.
 
         Args:
@@ -115,7 +119,7 @@ class OpenWeather:
 
         Returns:
             The instance (self)
-        """
+        '''
 
         lang_types = ["af", "al", "ar", "az", "bg", "ca", "cz", "da", "de",
                       "el", "en", "eu", "fa", "fi", "fr", "gl", "he", "hi",
@@ -136,7 +140,7 @@ class OpenWeather:
 
 
     def exclude(self, exclude_list):
-        """
+        '''
         Indicate items OpenWeather should not include in its response.
 
         Args:
@@ -144,7 +148,7 @@ class OpenWeather:
 
         Returns:
             The instance (self)
-        """
+        '''
         exclude_types = ["current", "minutely", "hourly", "daily", "alerts"]
         matches = []
         for item in exclude_list:
@@ -168,7 +172,7 @@ class OpenWeather:
     # *********PRIVATE FUNCTIONS - DO NOT CALL **********
 
     def _send_request(self, request_uri):
-        """
+        '''
         Send a request to OpenWeather.
 
         Args:
@@ -176,13 +180,13 @@ class OpenWeather:
 
         Returns:
             Dictionary containing `data` or `err` keys.
-        """
+        '''
 
         return self._process_response(self.requests.get(request_uri))
 
 
     def _process_response(self, response):
-        """
+        '''
         Process a response received from OpenWeather.
 
         Args:
@@ -190,7 +194,7 @@ class OpenWeather:
 
         Returns
             Dictionary containing `data` or `err` keys.
-        """
+        '''
 
         err = ""
         data = ""
@@ -215,7 +219,7 @@ class OpenWeather:
 
 
     def _check_coords(self, longitude=999.0, latitude=999.0, caller="function"):
-        """
+        '''
         Check that valid co-ordinates have been supplied.
 
         Args:
@@ -225,7 +229,7 @@ class OpenWeather:
 
         Returns:
             Whether the supplied co-ordinates are valid (True) or not (False).
-        """
+        '''
 
         err = "OpenWeather." + caller + "() "
         try:
@@ -255,7 +259,7 @@ class OpenWeather:
 
 
     def _add_options(self, baseurl=""):
-        """
+        '''
         Add URL-encoded options to the request URL. Used when assembling HTTPS requests.
 
         Args:
@@ -263,7 +267,7 @@ class OpenWeather:
 
         Returns
             The full URL with added options.
-        """
+        '''
 
         opts = "&units=" + self.units
         if self.lang: opts += "&lang=" + self.lang
@@ -271,23 +275,23 @@ class OpenWeather:
         return baseurl + opts
 
     def _print_error(self, msg):
-        """
+        '''
         Print an error message.
 
         Args:
             msg [string]    The error message.
-        """
+        '''
 
         print("[ERROR]", msg)
 
 
     def _print_debug(self, *msgs):
-        """
+        '''
         Print a debug message.
 
         Args:
             msg [tuple]    One or more string components
-        """
+        '''
         if self.debug:
             msg = ("[DEBUG]") + msgs
             print(msg)
