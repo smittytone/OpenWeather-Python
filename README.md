@@ -1,4 +1,4 @@
-# OpenWeather-Python 2.0.1
+# OpenWeather-Python 2.1.0
 
 The class this integration contains allows you to make calls to [OpenWeather’s One Call API 1.0](https://openweathermap.org/api/one-call-api).
 
