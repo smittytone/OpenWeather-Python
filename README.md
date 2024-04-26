@@ -1,6 +1,6 @@
 # OpenWeather-Python 2.2.0
 
-The class this integration contains allows you to make calls to [OpenWeather’s One Call API 1.0](https://openweathermap.org/api/one-call-api).
+The class this integration contains allows you to make calls to [OpenWeather’s One Call API 3.0](https://openweathermap.org/api/one-call-3).
 
 Access to the API is controlled by key. You will need to [register for developer access](https://openweathermap.org/appid) to obtain your key.
 
