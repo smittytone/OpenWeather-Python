@@ -1,6 +1,9 @@
+# Must be run from `tests` directory
 import unittest
 import requests
-
+import sys
+sys.path.append('.')
+sys.path.append('../openweather')
 from openweather import OpenWeather
 
 class FakeResponse:
@@ -14,7 +17,7 @@ class TestOpenWeather(unittest.TestCase):
     def setUp(self):
         # Load test data
         self.ow = OpenWeather(requests, "TEST")
-    
+
     # ************ EXCLUDE ************
 
     def test_exlude_1(self):
@@ -43,7 +46,7 @@ class TestOpenWeather(unittest.TestCase):
     def test_set_language_bad_default(self):
         self.ow.set_language("zzzzzz")
         assert self.ow.lang == "en"
-    
+
     def test_set_language_bad_retain_preset(self):
         self.ow.set_language("pt_br")
         self.ow.set_language("zzzzzz")
@@ -51,7 +54,7 @@ class TestOpenWeather(unittest.TestCase):
 
     def test_set_language_good_1(self):
         self.ow.set_language("fr")
-        assert self.ow.lang == "fr" 
+        assert self.ow.lang == "fr"
 
     # ************ SET UNITS ************
 
@@ -62,14 +65,14 @@ class TestOpenWeather(unittest.TestCase):
     def test_set_units_bad_retain_preset(self):
         self.ow.set_units("standard")
         self.ow.set_units("zzzzzz")
-        assert self.ow.units == "standard" 
+        assert self.ow.units == "standard"
 
     def test_set_units_good(self):
         self.ow.set_units("imperial")
         assert self.ow.units == "imperial"
 
     # ************ CHECK COORDS ************
-    
+
     def test_check_coords_none(self):
         result = self.ow._check_coords()
         assert result == False
@@ -111,7 +114,7 @@ class TestOpenWeather(unittest.TestCase):
 
     def test_request_forecast_bad_coords(self):
         result = self.ow.request_forecast(39.8535, "ZZZZZZ")
-        assert "error" in result and result["error"] == "Co-ordinate error"
+        assert ("error" in result) and (result["error"] == "Co-ordinate error")
 
     def test_request_forecast_no_coords(self):
         result = self.ow.request_forecast()
@@ -145,7 +148,7 @@ class TestOpenWeather(unittest.TestCase):
 
     def test_constructor_bad_arg_debug(self):
         with self.assertRaises(AssertionError):
-            result = OpenWeather(requests, "TEST", "TEST")        
+            result = OpenWeather(requests, "TEST", "TEST")
 
 if __name__ == "__main__":
     unittest.main()

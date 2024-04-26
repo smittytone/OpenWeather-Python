@@ -8,10 +8,10 @@ Register for developer access here: https://openweathermap.org/appid
 NOTE this class does not parse the incoming data, which is highly complex.
     It is up to your application to extract the data you require.
 
-Version:        2.1.0
+Version:        2.2.0
 Author:         Tony Smith (@smittytone)
 License:        MIT
-Copyright:      2022
+Copyright:      2024
 '''
 
 class OpenWeather:
@@ -21,8 +21,8 @@ class OpenWeather:
 
     # *********** CONSTANTS **********
 
-    VERSION = "2.1.0"
-    FORECAST_URL = "https://api.openweathermap.org/data/2.5/onecall"
+    VERSION = "2.2.0"
+    FORECAST_URL = "https://api.openweathermap.org/data/3.0/onecall"
 
 
     # *********Private Properties **********

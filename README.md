@@ -1,4 +1,4 @@
-# OpenWeather-Python 2.1.0
+# OpenWeather-Python 2.2.0
 
 The class this integration contains allows you to make calls to [OpenWeather’s One Call API 1.0](https://openweathermap.org/api/one-call-api).
 
@@ -32,8 +32,15 @@ The library uses `Requests`’ `get()` method, and works with `Response` instanc
 
 You can [find full library documentation at smittytone.net](https://smittytone.net/docs/openweather.html).
 
+## Tests
+
+```shell
+cd tests
+python -m unittest -v -b tests.py
+```
+
 ## Copyright and licence
 
-OpenWeather-Python is © 2022 by Tony Smith and is licensed under the terms of the [MIT licence](./LICENSE.md).
+OpenWeather-Python is © 2024 by Tony Smith and is licensed under the terms of the [MIT licence](./LICENSE.md).
 
-The OpenWeather One Call API is © 2012—2022, OpenWeather.
+The OpenWeather One Call API is © 2012—2024, OpenWeather.
