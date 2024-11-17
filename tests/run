@@ -6,9 +6,9 @@ open_env() {
         source "${source}/.python/bin/activate"
     else
         echo Making Python Environment
-        python -m venv "${source}/.python"
+        python3 -m venv "${source}/.python"
         source "${source}/.python/bin/activate"
-        python -m pip install -r requirements.txt
+        python3 -m pip install -r requirements.txt
     fi
 }
 
@@ -27,5 +27,5 @@ cd "${source}"
 open_env
 cd tests
 echo Running tests
-python -m unittest -v -b tests.py
+python3 -m unittest -v -b tests.py
 tidy_env
