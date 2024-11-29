@@ -6,13 +6,14 @@ Access to the API is controlled by key.
 Register for developer access here: https://openweathermap.org/appid
 
 NOTE this class does not parse the incoming data, which is highly complex.
-    It is up to your application to extract the data you require.
+     It is up to your application to extract the data you require.
 
 Version:        2.2.0
 Author:         Tony Smith (@smittytone)
 License:        MIT
 Copyright:      2024
 '''
+
 
 class OpenWeather:
     '''
@@ -24,7 +25,6 @@ class OpenWeather:
     VERSION = "2.2.0"
     FORECAST_URL = "https://api.openweathermap.org/data/3.0/onecall"
 
-
     # *********Private Properties **********
 
     requests = None
@@ -33,7 +33,6 @@ class OpenWeather:
     lang = "en"
     excludes = None
     debug = False
-
 
     # *********** CONSTRUCTOR **********
 
@@ -58,7 +57,6 @@ class OpenWeather:
         self.debug = do_debug
         self.apikey = api_key
         self.requests = requests_object
-
 
     # *********** PUBLIC METHODS **********
 
@@ -85,7 +83,6 @@ class OpenWeather:
         self._print_debug("Request URL: " + url)
         return self._send_request(url)
 
-
     def set_units(self, requested_units="standard"):
         '''
         Specify the preferred weather report's units.
@@ -109,7 +106,6 @@ class OpenWeather:
         self.units = requested_units
         self._print_debug("OpenWeather units set: " + self.units)
         return self
-
 
     def set_language(self, language="en"):
         '''
@@ -140,7 +136,6 @@ class OpenWeather:
         self._print_debug("OpenWeather language set: " + self.lang)
         return self
 
-
     def exclude(self, exclude_list=[]):
         '''
         Indicate items OpenWeather should not include in its response.
@@ -155,7 +150,8 @@ class OpenWeather:
         matches = []
         for item in exclude_list:
             for exclude_type in exclude_types:
-                if item == exclude_type: matches.append(item)
+                if item == exclude_type:
+                    matches.append(item)
 
         if len(matches) == 0:
             self._print_error("OpenWeather.exclude() incorrect exclusions passed")
@@ -169,7 +165,6 @@ class OpenWeather:
             self.excludes = self.excludes[0: len(self.excludes) - 1]
         self._print_debug("OpenWeather excludes set: " + self.excludes)
         return self
-
 
     # *********PRIVATE FUNCTIONS - DO NOT CALL **********
 
@@ -185,7 +180,6 @@ class OpenWeather:
         '''
 
         return self._process_response(self.requests.get(request_uri))
-
 
     def _process_response(self, response):
         '''
@@ -218,7 +212,6 @@ class OpenWeather:
 
         self._print_debug(("Received data:\n", data))
         return {"data": data}
-
 
     def _check_coords(self, latitude=999.0, longitude=999.0, caller="function"):
         '''
@@ -259,7 +252,6 @@ class OpenWeather:
             return False
         return True
 
-
     def _add_options(self, baseurl=""):
         '''
         Add URL-encoded options to the request URL. Used when assembling HTTPS requests.
@@ -276,7 +268,6 @@ class OpenWeather:
         if self.excludes: opts += "&exclude=" + self.excludes
         return baseurl + opts
 
-
     def _print_error(self, *msgs):
         '''
         Print an error message.
@@ -288,7 +279,6 @@ class OpenWeather:
         msg = "[ERROR] "
         for item in msgs: msg += item
         print(msg)
-
 
     def _print_debug(self, *msgs):
         '''
