@@ -41,6 +41,6 @@ python -m unittest -v -b tests.py
 
 ## Copyright and licence
 
-OpenWeather-Python is © 2024 by Tony Smith and is licensed under the terms of the [MIT licence](./LICENSE.md).
+OpenWeather-Python is © 2025 by Tony Smith and is licensed under the terms of the [MIT licence](./LICENSE.md).
 
-The OpenWeather One Call API is © 2012—2024, OpenWeather.
+The OpenWeather One Call API is © 2012—2025, OpenWeather.

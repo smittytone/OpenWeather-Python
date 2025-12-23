@@ -11,7 +11,7 @@ NOTE this class does not parse the incoming data, which is highly complex.
 Version:        2.2.0
 Author:         Tony Smith (@smittytone)
 License:        MIT
-Copyright:      2024
+Copyright:      2025
 '''
 
 
